@@ -81,21 +81,40 @@ def encode(output_file_binary, input_file):
 
 
 def decode(output_file_txt, input_file_binary):
-    current_content = ""
     output_file = open(output_file_txt, "w")
     with open(input_file_binary, "rb") as f:
         while True:
-            buf = f.read(4)
-            if not buf or len(buf) < 3:
+            buf = f.read(4).decode("utf-8")
+
+            if not buf:
                 break
-            print(buf)
-    pass
+            if len(buf) != 4:
+                raise Exception('The file contains invalid encoding')
+
+            tmp_content = ""
+            if "=" not in buf:
+                for char in buf:
+                    tmp_content += Base64_Char_On_Bit.get(char)
+
+            elif buf.find('=') == 3:  # we have 1 '=' character
+                tmp_content += Base64_Char_On_Bit.get(buf[0])
+                tmp_content += Base64_Char_On_Bit.get(buf[1])
+                tmp_content += Base64_Char_On_Bit.get(buf[2])[:4]
+
+            else:
+                tmp_content += Base64_Char_On_Bit.get(buf[0])
+                tmp_content += Base64_Char_On_Bit.get(buf[1])[:2]
+
+            n = int('0b' + tmp_content, 2)
+            output_file.write(n.to_bytes((n.bit_length() + 7) // 8, 'big').decode())
+
+    output_file.close()
 
 
 if __name__ == '__main__':
     if len(sys.argv) != 4:
-        print("Usage : python zad2.py --encode file.bin file-enc.txt")
-        print("        python zad2.py --decode file-enc.txt file.bin")
+        print("Usage : python Zad2.py --encode file.bin file-enc.txt")
+        print("        python Zad2.py --decode file-enc.txt file.bin")
         exit(1)
 
     if sys.argv[1] == '--encode':
