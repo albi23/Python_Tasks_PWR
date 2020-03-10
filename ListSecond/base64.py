@@ -113,8 +113,8 @@ def decode(output_file_txt, input_file_binary):
 
 if __name__ == '__main__':
     if len(sys.argv) != 4:
-        print("Usage : python Zad2.py --encode file.bin file-enc.txt")
-        print("        python Zad2.py --decode file-enc.txt file.bin")
+        print("Usage : python base64.py --encode file.bin file-enc.txt")
+        print("        python base64.py --decode file-enc.txt file.bin")
         exit(1)
 
     if sys.argv[1] == '--encode':
@@ -122,5 +122,5 @@ if __name__ == '__main__':
     elif sys.argv[1] == '--decode':
         decode(sys.argv[2], sys.argv[3])
     else:
-        print("Usage : python zad2.py --decode file-enc.txt file.bin")
+        print("Wrong usage")
         exit(1)
