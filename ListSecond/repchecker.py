@@ -10,8 +10,29 @@ class FileDataCollector:
         self.occurrences = occurrences
         self.location = location
 
+    def __str__(self):
+        return '{occurrences :' + str(self.occurrences) + ',location :' + self.location + ' }'
+
+    def __hash__(self):
+        return hash((self.occurrences, self.location))
+
+    def __eq__(self, other):
+        return (self.occurrences, self.location) == (other.occurrences, other.location)
+
+    def __ne__(self, other):
+        return not (self == other)
+
     def increase_occurrences(self):
         self.occurrences += 1
+
+    def append_location(self, next_location: str):
+        self.location += '\n' + next_location
+
+    def get_location(self) -> str:
+        return self.location
+
+    def get_occurrences(self) -> int:
+        return self.occurrences
 
 
 class FileKeyMap:
@@ -23,10 +44,13 @@ class FileKeyMap:
         return hash((self.hash_sum, self.size))
 
     def __eq__(self, other):
-        return (self.hash_sum, self.size) == (other.name, other.location)
+        return (self.hash_sum, self.size) == (other.hash_sum, other.size)
 
     def __ne__(self, other):
         return not (self == other)
+
+    def __str__(self):
+        return '{hash_sum :' + str(self.hash_sum) + ',size :' + str(self.size) + ' }'
 
 
 def md5sum(filename, blocksize=65536):
@@ -43,17 +67,18 @@ def run_walk(path: str):
             file_full_name = os.path.join(root, name)
             file_size = os.path.getsize(file_full_name)
             md5sum_hash = md5sum(file_full_name)
-            if file_tree_data.get(FileKeyMap(md5sum_hash, file_size)) is not None:
-                file_data_collector: FileDataCollector = file_tree_data.get(FileKeyMap(md5sum_hash, file_size))
-                file_data_collector.increase_occurrences()
-            else:
-                key = FileKeyMap(md5sum_hash, file_size)
+            key = FileKeyMap(md5sum_hash, file_size)
+            if file_tree_data.get(key) is None:
                 value = FileDataCollector(file_full_name, 1)
                 file_tree_data[key] = value
-            print(os.path.join(root, name))
-        for name in dirs:
-            print(os.path.join(root, name))
-    print(file_tree_data)
+            else:
+                file_data_collector: FileDataCollector = file_tree_data.get(key)
+                file_data_collector.increase_occurrences()
+                file_data_collector.append_location(file_full_name)
+
+    for key, values in file_tree_data.items():
+        if values.get_occurrences() > 1:
+            print(values.get_location() + "\n".ljust(40, '-'))
 
 
 if __name__ == '__main__':
