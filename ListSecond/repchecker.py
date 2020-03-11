@@ -81,6 +81,6 @@ def run_walk(path: str):
 
 if __name__ == '__main__':
     if len(sys.argv) != 2:
-        print("Missing path input ")
+        print("Usage : python repchecker.py path")
         exit(1)
     run_walk(sys.argv[1])
