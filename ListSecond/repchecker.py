@@ -2,8 +2,6 @@ import hashlib
 import os
 import sys
 
-file_tree_data = {}
-
 
 class FileDataCollector:
     def __init__(self, location, occurrences):
@@ -62,20 +60,21 @@ def md5sum(filename, blocksize=65536):
 
 
 def run_walk(path: str):
+    file_tree_map = {}
     for root, dirs, files in os.walk(path, topdown=True):
         for name in files:
             file_full_path = os.path.join(root, name)
             file_size = os.path.getsize(file_full_path)
             md5sum_hash = md5sum(file_full_path)
             map_key = FileKeyMap(md5sum_hash, file_size)
-            if file_tree_data.get(map_key) is None:
-                file_tree_data[map_key] = FileDataCollector(file_full_path, 1)
+            if file_tree_map.get(map_key) is None:
+                file_tree_map[map_key] = FileDataCollector(file_full_path, 1)
             else:
-                file_data_collector: FileDataCollector = file_tree_data.get(map_key)
+                file_data_collector: FileDataCollector = file_tree_map.get(map_key)
                 file_data_collector.increase_occurrences()
                 file_data_collector.append_location(file_full_path)
 
-    for map_key, values in file_tree_data.items():
+    for map_key, values in file_tree_map.items():
         if values.get_occurrences() > 1:
             print(values.get_location() + "\n".ljust(40, '-'))
 
