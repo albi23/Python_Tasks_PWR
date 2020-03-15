@@ -54,7 +54,7 @@ def decrypt(param: str):
         private_key = pickle.load(key_prv_file)
 
     decrypted = rsa.decrypt(int2bytes(long(param)), private_key)
-    print(decrypted)
+    print(decrypted.decode("utf-8"))
 
 
 def print_usage():
