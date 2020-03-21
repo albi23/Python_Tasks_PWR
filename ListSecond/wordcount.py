@@ -13,7 +13,7 @@ def main_file_data_reader(file):
         if len(line) > max_line_length:
             max_line_length = len(line)
         read_bytes += len(bytes(line, 'utf-8'))
-        read_word += len(line.split(' '))
+        read_word += len(line.split())
 
     file_data.close()
     print("Bytes : ", read_bytes, "\nWords : ", read_word, "\nLines : ", read_lines,
@@ -25,4 +25,4 @@ if __name__ == '__main__':
         print("Missing file input")
         exit(1)
 
-    main_file_data_reader(sys.argv[0])
+    main_file_data_reader(sys.argv[1])
