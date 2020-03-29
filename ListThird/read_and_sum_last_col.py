@@ -1,7 +1,7 @@
 import sys
 
 
-def sum_files_size(file_name: str):
+def sum_files_size(file_name: str) -> int:
     with open(file_name, "r") as file:
         return sum(int(line.split()[-1]) for line in file)
 
