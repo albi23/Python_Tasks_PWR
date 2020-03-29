@@ -1,230 +1,211 @@
 from __future__ import division
 
-import pyparsing
-
-import compiler
-#
-# import scipy.special
-#
-#
-# def pascal_triangle(n: int) -> None:
-#     if n <= 0:
-#         return
-#
-#     max_size_of_number: int = len(str((int(scipy.special.binom(n, int(n / 2))))))
-#     for line in range(1, n + 1):
-#         x = int(max_size_of_number * ((n / 2) - (line - 1) / 2))
-#         pattern_of_line: str = '{:^' + str(x) + '}'
-#         print(pattern_of_line.format(' '), end='')
-#         c: int = 1
-#         for j in range(1, line + 1):
-#             print(c, end=' ')
-#             c = int(c * (line - j) / j)
-#         print()
-#     pass
-#
-#
-# def primes(n: int) -> List[int]:
-#     primes_bool_array = [True] * (n + 1)
-#     primes_bool_array[0] = primes_bool_array[1] = False
-#
-# limit: int = int(math.sqrt(n))
-#
-#     for number in range(0, limit+1):
-#         if primes_bool_array[number]:
-#             i: int = number * number
-#             while i <= n:
-#                 primes_bool_array[i] = False
-#                 i += number
-#
-#     primes_array: List[int] = []
-#     for i in range(0, n+1):
-#         if primes_bool_array[i]:
-#             primes_array.append(i)
-#
-#     return primes_array
-#     pass
-#
-#
-# print(primes(100))
-
-# from typing import TypeVar
-# T = TypeVar('T')
-#
-#
-# def make_without_repeats(generic_list: List[T]) -> List[T]:
-#     if len(generic_list) == 0:
-#         return generic_list
-#     else:
-#         array_set: List[T] = []
-#         if isinstance(generic_list[0], list):
-#             sorted(generic_list, key=lambda l: l[0])
-#
-#         else:
-#             generic_list.sort()
-#
-#         previous: T = None
-#         for i in range(0, len(generic_list)):
-#             if generic_list[i] != previous:
-#                 array_set.append(generic_list[i])
-#             previous = generic_list[i]
-#
-#     return array_set
-#     pass
-#
-#
-# print(make_without_repeats([1, 2, 4, 4, 4, 6, 8, 4, 2, 55, -1, -1, 6, 8, 0, -1, -2]))
-# print(make_without_repeats(['a', 'b', 'c', 'd', 'a', 'b', 'c', 'd', 'a', 'b', 'c', 'd', 'h', 'h', 'w', 'f']))
-# print(make_without_repeats(
-#     [['a', 'b', 'f'], ['a', 'b', 'f'], ['b', 'b', 'b'], ['b', 'b', 'e'], ['a', 'b', 'f'], ['c', 'c', 'f']]))
-
-#
-# def prime_factors(n: int) -> Dict[int, int]:
-#     prime: int = 2
-#     factors_map = {}
-#     res = collections.ChainMap(factors_map)
-#     while n >= prime * prime:
-#         if n % prime == 0:
-#             if res.get(prime) is not None:
-#                 factors_map[prime] += 1
-#             else:
-#                 factors_map[prime] = 1
-#             n = int(n / prime)
-#         else:
-#             prime += 1
-#
-#     if res.get(n) is not None:
-#         factors_map[n] += 1
-#     else:
-#         factors_map[n] = 1
-#     return factors_map
-#     pass
-#
-
-# print(prime_factors(10616832000))
-# import math
-# import re
-# from typing import List
-#
-#
-# def fraczero(n: int) -> int:
-#     if n >= 0 or n <= 1000:
-#         result_array: List = re.findall("0+$", str(math.factorial(n)))
-#         if len(result_array) > 0:
-#             return len(result_array[0])
-#     return 0
-#
-#
-# print(fraczero(10000))
-
-
-# def random_calculation():
-#     random_arr: List = []
-#     even: int = 0
-#     random_sum: int = 0
-#     first_max: int = 0
-#     second_max = 0
-#     first_min: int = 100
-#     second_min = 100
-#     for index in range(0, 20):
-#         next_random: int = random.randrange(1, 100)
-#         random_sum += next_random
-#
-#         if next_random > first_max:
-#             second_max = first_max
-#             first_max= next_random
-#         if next_random < first_min:
-#             second_min = first_min
-#             first_min= next_random
-#
-#         if next_random % 2 == 0: even += 1
-#         random_arr.append(next_random)
-#
-#     print("List: ", random_arr)
-#     print("Max : ", first_max, "  second first_max ", second_max)
-#     print("Min : ", first_min, "  second first_min ", second_min)
-#     print("Even count : ", even, "  avg of numbers  ", random_sum/len(random_arr))
-#
-#
-# random_calculation()
-
-
-# def pattern_mather(pattern: str, text_list: List[str]) -> List[str]:
-#     map_dictionary = {}
-#     for i in range(0, len(pattern)):
-#         if pattern[i] is not "*":
-#             map_dictionary[i] = pattern[0]
-#
-#     return [string for string in text_list if all(string[i] == c for i, c in map_dictionary.items())]
-#
-#
-# L = ['aababacaa', 'cabaabcca', 'aaabbcbacb', 'acababbaab']
-# my_pattern = "a**a******"
-#
-# print(pattern_mather(my_pattern, L))
-import math
-from typing import List
-
-# def to_arabic(roman: str) -> int:
-#     arabic: List[int] = [1000, 500, 100, 50, 10, 5, 1]
-#     roman_arr: List[chr] = ['M', 'D', 'C', 'L', 'X', 'V', 'I']
-#     i: int = 0
-#     j: int = 0
-#     result: int = 0
-#     while j < len(roman) and i < len(arabic):
-#         if roman[j] == roman_arr[i]:
-#             result += arabic[i]
-#             j += 1
-#         elif ((i % 2 == 0)
-#               and (i < len(roman_arr)-2)
-#               and (j < len(roman) - 1)
-#               and (roman[j] == roman_arr[i + 2])
-#               and (roman[j + 1] == roman_arr[i])):
-#             result += arabic[i] - arabic[i + 2]
-#             j += 2
-#             i += 1
-#         elif ((i % 2 == 1)
-#               and (i < len(roman_arr) - 1)
-#               and (j < len(roman) - 1)
-#               and (roman[j] == roman_arr[i + 1])
-#               and (roman[j + 1] == roman_arr[i])):
-#             result += arabic[i] - arabic[i + 1]
-#             j += 2
-#             i += 1
-#         else:
-#             i += 1
-#
-#     if i == len(roman_arr):
-#         return -1
-#     return result
-#
-#
-# print(to_arabic('MMMCMXCIX'))
-
-
-from pyparsing import (Literal, CaselessLiteral, Word, Combine, Group, Optional,
-                       ZeroOrMore, Forward, nums, alphas, oneOf)
+import collections
 import math
 import operator
+import random
+import re
+from filecmp import cmp
+from typing import List, Dict
+from typing import TypeVar
 
-__author__ = 'Paul McGuire'
-__version__ = '$Revision: 0.0 $'
-__date__ = '$Date: 2009-03-20 $'
-__source__ = '''http://pyparsing.wikispaces.com/file/view/fourFn.py
-http://pyparsing.wikispaces.com/message/view/home/15549426
-'''
-__note__ = '''
-All I've done is rewrap Paul McGuire's fourFn.py as a class, so I can use it
-more easily in other places.
-'''
+import scipy.special
+from pyparsing import (Literal, CaselessLiteral, Word, Combine, Group, Optional,
+                       ZeroOrMore, Forward, nums, alphas, oneOf)
+
+T = TypeVar('T')
+
+
+def pascal_triangle(n: int) -> None:
+    if n <= 0:
+        return
+
+    max_size_of_number: int = len(str((int(scipy.special.binom(n, int(n / 2))))))
+    for line in range(1, n + 1):
+        x = int(max_size_of_number * ((n / 2) - (line - 1) / 2))
+        pattern_of_line: str = '{:^' + str(x) + '}'
+        print(pattern_of_line.format(' '), end='')
+        c: int = 1
+        for j in range(1, line + 1):
+            print(c, end=' ')
+            c = int(c * (line - j) / j)
+        print()
+    pass
+
+
+def primes(n: int) -> List[int]:
+    primes_bool_array = [True] * (n + 1)
+    primes_bool_array[0] = primes_bool_array[1] = False
+
+    limit: int = int(math.sqrt(n))
+
+    for number in range(0, limit + 1):
+        if primes_bool_array[number]:
+            i: int = number * number
+            while i <= n:
+                primes_bool_array[i] = False
+                i += number
+
+    primes_array: List[int] = []
+    for i in range(0, n + 1):
+        if primes_bool_array[i]:
+            primes_array.append(i)
+
+    return primes_array
+
+
+pass
+
+print(primes(100))
+
+
+def make_without_repeats(generic_list: List[T]) -> List[T]:
+    if len(generic_list) == 0:
+        return generic_list
+    else:
+        array_set: List[T] = []
+        if isinstance(generic_list[0], list):
+            sorted(generic_list, key=lambda l: l[0])
+
+        else:
+            generic_list.sort()
+
+        previous: T = None
+        for i in range(0, len(generic_list)):
+            if generic_list[i] != previous:
+                array_set.append(generic_list[i])
+            previous = generic_list[i]
+
+    return array_set
+    pass
+
+
+print(make_without_repeats([1, 2, 4, 4, 4, 6, 8, 4, 2, 55, -1, -1, 6, 8, 0, -1, -2]))
+print(make_without_repeats(['a', 'b', 'c', 'd', 'a', 'b', 'c', 'd', 'a', 'b', 'c', 'd', 'h', 'h', 'w', 'f']))
+print(make_without_repeats(
+    [['a', 'b', 'f'], ['a', 'b', 'f'], ['b', 'b', 'b'], ['b', 'b', 'e'], ['a', 'b', 'f'], ['c', 'c', 'f']]))
+
+
+def prime_factors(n: int) -> Dict[int, int]:
+    prime: int = 2
+    factors_map = {}
+    res = collections.ChainMap(factors_map)
+    while n >= prime * prime:
+        if n % prime == 0:
+            if res.get(prime) is not None:
+                factors_map[prime] += 1
+            else:
+                factors_map[prime] = 1
+            n = int(n / prime)
+        else:
+            prime += 1
+
+    if res.get(n) is not None:
+        factors_map[n] += 1
+    else:
+        factors_map[n] = 1
+    return factors_map
+    pass
+
+
+print(prime_factors(10616832000))
+
+
+def fraczero(n: int) -> int:
+    if n >= 0 or n <= 1000:
+        result_array: List = re.findall("0+$", str(math.factorial(n)))
+        if len(result_array) > 0:
+            return len(result_array[0])
+    return 0
+
+
+print(fraczero(10000))
+
+
+def random_calculation():
+    random_arr: List = []
+    even: int = 0
+    random_sum: int = 0
+    first_max: int = 0
+    second_max = 0
+    first_min: int = 100
+    second_min = 100
+    for index in range(0, 20):
+        next_random: int = random.randrange(1, 100)
+        random_sum += next_random
+
+        if next_random > first_max:
+            second_max = first_max
+            first_max = next_random
+        if next_random < first_min:
+            second_min = first_min
+            first_min = next_random
+
+        if next_random % 2 == 0: even += 1
+        random_arr.append(next_random)
+
+    print("List: ", random_arr)
+    print("Max : ", first_max, "  second first_max ", second_max)
+    print("Min : ", first_min, "  second first_min ", second_min)
+    print("Even count : ", even, "  avg of numbers  ", random_sum / len(random_arr))
+
+
+random_calculation()
+
+
+def pattern_mather(pattern: str, text_list: List[str]) -> List[str]:
+    map_dictionary = {}
+    for i in range(0, len(pattern)):
+        if pattern[i] is not "*":
+            map_dictionary[i] = pattern[0]
+
+    return [string for string in text_list if all(string[i] == c for i, c in map_dictionary.items())]
+
+
+L = ['aababacaa', 'cabaabcca', 'aaabbcbacb', 'acababbaab']
+my_pattern = "a**a******"
+
+print(pattern_mather(my_pattern, L))
+
+
+def to_arabic(roman: str) -> int:
+    arabic: List[int] = [1000, 500, 100, 50, 10, 5, 1]
+    roman_arr: List[chr] = ['M', 'D', 'C', 'L', 'X', 'V', 'I']
+    i: int = 0
+    j: int = 0
+    result: int = 0
+    while j < len(roman) and i < len(arabic):
+        if roman[j] == roman_arr[i]:
+            result += arabic[i]
+            j += 1
+        elif ((i % 2 == 0)
+              and (i < len(roman_arr) - 2)
+              and (j < len(roman) - 1)
+              and (roman[j] == roman_arr[i + 2])
+              and (roman[j + 1] == roman_arr[i])):
+            result += arabic[i] - arabic[i + 2]
+            j += 2
+            i += 1
+        elif ((i % 2 == 1)
+              and (i < len(roman_arr) - 1)
+              and (j < len(roman) - 1)
+              and (roman[j] == roman_arr[i + 1])
+              and (roman[j + 1] == roman_arr[i])):
+            result += arabic[i] - arabic[i + 1]
+            j += 2
+            i += 1
+        else:
+            i += 1
+
+    if i == len(roman_arr):
+        return -1
+    return result
+
+
+print(to_arabic('MMMCMXCIX'))
 
 
 class NumericStringParser(object):
-    '''
-    Most of this code comes from the fourFn.py pyparsing example
-
-    '''
-
     def pushFirst(self, strg, loc, toks):
         self.exprStack.append(toks[0])
 
@@ -264,9 +245,6 @@ class NumericStringParser(object):
                  (ident + lpar + expr + rpar | pi | e | fnumber).setParseAction(self.pushFirst))
                 | Optional(oneOf("- +")) + Group(lpar + expr + rpar)
                 ).setParseAction(self.pushUMinus)
-        # by defining exponentiation as "atom [ ^ factor ]..." instead of
-        # "atom [ ^ atom ]...", we get right-to-left exponents, instead of left-to-right
-        # that is, 2^3^2 = 2^(3^2), not (2^3)^2.
         factor = Forward()
         factor << atom + \
         ZeroOrMore((expop + factor).setParseAction(self.pushFirst))
@@ -274,11 +252,7 @@ class NumericStringParser(object):
                ZeroOrMore((multop + factor).setParseAction(self.pushFirst))
         expr << term + \
         ZeroOrMore((addop + term).setParseAction(self.pushFirst))
-        # addop_term = ( addop + term ).setParseAction( self.pushFirst )
-        # general_term = term + ZeroOrMore( addop_term ) | OneOrMore( addop_term)
-        # expr <<  general_term
         self.bnf = expr
-        # map operator symbols to corresponding arithmetic operations
         epsilon = 1e-12
         self.opn = {"+": operator.add,
                     "-": operator.sub,
