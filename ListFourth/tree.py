@@ -60,7 +60,7 @@ if __name__ == '__main__':
         print("Usage : python tree.py tree_height")
         exit(1)
 
-    tree = generate_random_tree(4)
+    tree = generate_random_tree(int(sys.argv[1]))
     print(tree)
     print(list(bfs_traveling(tree)))
     print(list(dfs_traveling(tree)))
