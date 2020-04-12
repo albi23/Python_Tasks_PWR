@@ -8,7 +8,7 @@ class Node:
 
     def __init__(self, parent, value: str):
         self.parent = parent
-        self.value = value
+        self.value: str = value
         self.nodes: List[Node] = list()
 
     def add_node(self, node):
@@ -24,6 +24,9 @@ def gen_random_tree(tree_height: int) -> Node:
     all_leaves_limit: int = random.randint(lower_limit, upper_limit)
 
     root = Node(None, "1")
+    if tree_height == 1:
+        return root
+
     nodes_to_fill: List = [root]
     counter: int = 1
     while True:

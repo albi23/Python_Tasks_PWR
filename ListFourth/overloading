@@ -1,0 +1,30 @@
+import math
+from collections import defaultdict
+from inspect import getfullargspec
+
+
+class Overload:
+    map_name = defaultdict(dict)
+
+    def __init__(self, func):
+        self.map_name = Overload.map_name[func.__name__]
+        args_len = len(getfullargspec(func).args)
+        self.map_name[args_len] = func
+
+    def __call__(self, *args, **kwargs):
+        return self.map_name[len(args)](*args, **kwargs)
+
+
+@Overload
+def norm(x, y):
+    return math.sqrt(x * x + y * y)
+
+
+@Overload
+def norm(x, y, z):
+    return abs(x) + abs(y) + abs(z)
+
+
+if __name__ == '__main__':
+    print(norm(2, 4))
+    print(norm(2, 3, 4))
